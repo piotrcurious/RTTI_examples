@@ -9,10 +9,10 @@
 
 // Define a struct example
 struct example {
-  int a;
+  int32_t a;
   float b;
   char c;
-};
+} __attribute__((packed));
 
 // Declare an instance of the struct
 example myVar;

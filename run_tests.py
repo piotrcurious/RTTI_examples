@@ -59,7 +59,8 @@ def main():
         "tstype/serialize_struct.ino",
         "tstype/serialize_to_JSON_neat.ino",
         "generic_serialization.ino",
-        "command_processor.ino"
+        "command_processor.ino",
+        "safe_portable_serialization.ino"
     ]
 
     for example in examples:

@@ -5,7 +5,7 @@ struct Command {
     uint8_t cmd_id;
     int16_t arg1;
     int16_t arg2;
-};
+} __attribute__((packed));
 
 void processCommand(const Command& cmd) {
     Serial.print("Processing command ID: ");

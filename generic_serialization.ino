@@ -21,13 +21,13 @@ struct SensorData {
     uint32_t timestamp;
     float temperature;
     float humidity;
-};
+} __attribute__((packed));
 
 struct Config {
     char deviceID[10];
     uint16_t interval;
     bool enabled;
-};
+} __attribute__((packed));
 
 void setup() {
     Serial.begin(9600);
