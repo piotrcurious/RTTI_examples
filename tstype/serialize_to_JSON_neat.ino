@@ -7,7 +7,7 @@ struct Person {
   float age;
   char name[20];
   bool married;
-};
+} __attribute__((packed));
 
 // Create a TSType object for the struct
 TSType<Person> personType;

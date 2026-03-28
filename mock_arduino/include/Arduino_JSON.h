@@ -19,12 +19,14 @@ public:
         Element& operator=(bool v) { _val = v ? "true" : "false"; return *this; }
         Element& operator=(const char* v) { _val = v ? v : "null"; return *this; }
         Element& operator=(std::nullptr_t) { _val = "null"; return *this; }
+        Element& operator=(const std::string& v) { _val = v; return *this; }
 
         operator int() const { try { return std::stoi(_val); } catch(...) { return 0; } }
         operator char() const { try { return (char)std::stoi(_val); } catch(...) { return _val.length() > 0 ? _val[0] : 0; } }
         operator float() const { try { return std::stof(_val); } catch(...) { return 0.0f; } }
         operator bool() const { return _val == "true"; }
         operator const char*() const { return _val.c_str(); }
+        operator std::string() const { return _val; }
     };
 
     Element operator[](const std::string& key) {

@@ -3,10 +3,10 @@
 
 // Define a struct with some fields
 struct Person {
-  int age;
+  int32_t age;
   char name[20];
   bool married;
-};
+} __attribute__((packed));
 
 // Create a TSType object for the struct
 TSType<Person> personType;
@@ -23,7 +23,7 @@ void printField(TSTypeField field, void* value) {
   // Print the field value based on the type
   switch (field.type) {
     case TS_INT:
-      Serial.println(*((int*)value));
+      Serial.println(*((int32_t*)value));
       break;
     case TS_CHAR:
       Serial.println(*((char*)value));

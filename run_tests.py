@@ -57,6 +57,7 @@ def main():
         "udp_to_struct_esp8266.ino",
         "tstype/basic_example.ino",
         "tstype/serialize_struct.ino",
+        "tstype/serialize_to_json.ino",
         "tstype/serialize_to_JSON_neat.ino",
         "generic_serialization.ino",
         "command_processor.ino",

@@ -3,10 +3,10 @@
 
 // Define a struct with some fields
 struct Person {
-  int age;
+  int32_t age;
   char name[20];
   bool married;
-};
+} __attribute__((packed));
 
 // Create a TSType object for the struct
 TSType<Person> personType;
