@@ -1,0 +1,4 @@
+test_bin
+temp_test.cpp
+mock_arduino/bin/
+*.o

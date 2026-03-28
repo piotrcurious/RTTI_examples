@@ -50,12 +50,10 @@ void loop() {
     byte buffer[sizeof(example)];
     Udp.read(buffer, sizeof(example));
 
-    // Deserialize the buffer into a struct using RTTI and dynamic_cast
-    byte* p = buffer;
+    // Deserialize the buffer into a struct
+    byte* b = (byte*)&myVar;
     for (int i = 0; i < sizeof(example); i++) {
-      byte* b = static_cast<byte*>(&myVar);
-      void* v = dynamic_cast<void*>(b);
-      b[i] = *p++;
+      b[i] = buffer[i];
     }
 
     // Print the struct fields
@@ -67,7 +65,6 @@ void loop() {
     Serial.println(myVar.c);
   }
 }
-```
 
 //Source: Conversation with Bing, 4/12/2023(1) Ethernet Shield Sending and Receiving String via UDP - Arduino. https://www.arduino.cc/en/Tutorial/LibraryExamples/UDPSendReceiveString Accessed 4/12/2023.
 //(2) Send and Receive UDP String | Arduino Documentation. https://docs.arduino.cc/library-examples/wifi-library/WiFiUdpSendReceiveString/ Accessed 4/12/2023.

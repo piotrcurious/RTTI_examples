@@ -1,6 +1,8 @@
 
 // Include the RTTI library
 #include <RTTI.h>
+#include <WiFi.h>
+#include <WiFiUdp.h>
 
 // Define a struct example
 struct example {

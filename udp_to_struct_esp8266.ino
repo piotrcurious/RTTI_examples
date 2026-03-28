@@ -33,6 +33,8 @@ WiFiEventHandler wifiConnectHandler;
 // Define a flag to indicate if WiFi is connected
 bool wifiConnected = false;
 
+void onWifiConnect(const WiFiEventStationModeGotIP& event);
+
 void setup() {
   // Initialize serial communication
   Serial.begin(9600);

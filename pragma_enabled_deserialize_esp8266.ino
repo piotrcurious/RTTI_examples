@@ -55,12 +55,10 @@ void loop() {
     byte buffer[sizeof(example)];
     Udp.read(buffer, sizeof(example));
 
-    // Deserialize the buffer into a struct using RTTI and dynamic_cast
-    byte* p = buffer;
+    // Deserialize the buffer into a struct
+    byte* b = (byte*)&myVar;
     for (int i = 0; i < sizeof(example); i++) {
-      byte* b = static_cast<byte*>(&myVar);
-      void* v = dynamic_cast<void*>(b);
-      b[i] = *p++;
+      b[i] = buffer[i];
     }
 
     // Print the struct fields
