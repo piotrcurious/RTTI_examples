@@ -3,10 +3,10 @@
 
 // Define a struct with some fields
 struct Person {
-  int age;
+  int32_t age;
   char name[20];
   bool married;
-};
+} __attribute__((packed));
 
 // Create a TSType object for the struct
 TSType<Person> personType;
@@ -14,7 +14,7 @@ TSType<Person> personType;
 // Create a struct instance
 Person person = {25, "Alice", true};
 
-// A function to serialize the struct into a buffer
+// A function to serialize the struct into a buffer (Portability improved)
 void serializeStruct(TSType<Person> type, Person* data, byte* buffer, int* size) {
   // Initialize the buffer size to zero
   *size = 0;
@@ -24,15 +24,22 @@ void serializeStruct(TSType<Person> type, Person* data, byte* buffer, int* size)
     TSTypeField field = type.getField(i);
     // Get the address of the field value
     void* value = type.getFieldValue(data, i);
-    // Get the size of the field value in bytes
-    int fieldSize = field.size;
-    // Loop through the bytes of the field value
-    for (int j = 0; j < fieldSize; j++) {
-      // Copy the j-th byte to the buffer
-      buffer[*size + j] = ((byte*)value)[j];
+
+    // For integers, handle byte order explicitly (e.g. Little Endian)
+    if (field.type == TS_INT && field.size == 4) {
+      int32_t val = *((int32_t*)value);
+      buffer[*size + 0] = (val >> 0) & 0xFF;
+      buffer[*size + 1] = (val >> 8) & 0xFF;
+      buffer[*size + 2] = (val >> 16) & 0xFF;
+      buffer[*size + 3] = (val >> 24) & 0xFF;
+    } else {
+      // For other types, copy byte-by-byte
+      for (int j = 0; j < field.size; j++) {
+        buffer[*size + j] = ((byte*)value)[j];
+      }
     }
     // Increment the buffer size by the field size
-    *size += fieldSize;
+    *size += field.size;
   }
 }
 

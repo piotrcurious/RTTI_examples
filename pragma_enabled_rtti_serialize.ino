@@ -9,10 +9,10 @@
 
 // Define a struct example
 struct example {
-  int a;
+  int32_t a;
   float b;
   char c;
-};
+} __attribute__((packed));
 
 // Declare an instance of the struct
 example myVar;
@@ -43,13 +43,11 @@ void setup() {
 
 // Loop function
 void loop() {
-  // Serialize the struct using RTTI and dynamic_cast
+  // Serialize the struct
   byte buffer[sizeof(example)];
-  byte* p = buffer;
+  byte* b = (byte*)&myVar;
   for (int i = 0; i < sizeof(example); i++) {
-    void* v = static_cast<void*>(&myVar);
-    byte* b = dynamic_cast<byte*>(v);
-    *p++ = b[i];
+    buffer[i] = b[i];
   }
 
   // Send the buffer as a UDP broadcast packet

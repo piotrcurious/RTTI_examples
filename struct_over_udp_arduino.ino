@@ -1,13 +1,15 @@
 
 // Include the RTTI library
 #include <RTTI.h>
+#include <WiFi.h>
+#include <WiFiUdp.h>
 
 // Define a struct example
 struct example {
-  int a;
+  int32_t a;
   float b;
   char c;
-};
+} __attribute__((packed));
 
 // Create an instance of the struct
 example e = {1, 2.5, 'x'};
